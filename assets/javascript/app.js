@@ -22,29 +22,45 @@ var count = 30;
 
 //make several questions within this object
 var holidayQuestion = [{
-    question:
-    choices:
-    rightAnswer: 
-}];
+    question: "What Christmas decoration was originally made from strands of silver?",
+    choices: ["Ornaments", "Tinsel", "Mistletoe", "Wreaths"],
+    rightAnswer: 1
+}, {
+    question: "What beverage company has been using Santa Claus in its advertising since 1931?",
+    choices: ["Coca-Cola", "Pepsi", "Dr. Pepper", "Fanta"],
+    rightAnswer: 0
+}, {
+    question: "When was the first New Year celebration?", 
+    choices: ["1000 years ago", "2000 years ago", "3000 years ago", "4000 years ago"],
+    rightAnswer: 4
+}, {
+    question: "What does the traditional New Year's song, \"Auld Lang Syne\" mean?"
+    choices: 
+}
 
 // create start button
-$(".startbutton").click.function(e) {
-    $(this).hide();
-    counter = setInterval(timer, 1000);
-    displayTrivia();
-}); 
+//$(".startbutton").click.function(){
+   // $(this).hide();
+   // counter = setInterval(timer, 1000);
+   // displayTrivia();
+//}; 
+
+$(".startbutton").click(function(){
+    $(this).hide(); 
+    var counter = setInterval(timer, 1000); 
+})
 
 function timer () {
-    count--;
-    if (count <= 0) {
+   count--;
+   // why doesn't count = 0 work here
+   if (count <= -1) {
         clearInterval(counter);
-        return;
-    }
+   }
 
-    $(".timer").html(`Time Remaining: 00: ${count} seconds`);
+    $(".timer").html(`Time Remaining : 00 : ${count} seconds`);
 }
 
 
 
 
-}
+})
