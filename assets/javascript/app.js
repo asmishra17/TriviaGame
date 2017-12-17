@@ -12,12 +12,12 @@ $(document).ready(function() {
 // game restart page
 
 // global variables
-var userPick; 
+var userChoice; 
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 var wrongAnswer = 0;
 var question = 0;
-var count = 30; 
+var count = 4; 
 
 // make several questions within this object
 var holidayQuestions = [{
@@ -55,29 +55,40 @@ var holidayQuestions = [{
 } 
 ]; 
 
+var timerId;
+
 $(".startbutton").click(function(){
     $(this).hide(); 
-    var counter = setInterval(startTimer, 1000);
+    timerId = setInterval(startTimer, 1000);
     startTrivia(); 
 })
 
 function startTimer () {
    count--;
-   // why doesn't count = 0 work here
-   if (count <= -1) {
-        clearInterval(counter);
-   }
-
-    $(".timer").html(`Time Remaining : 00 : ${count} seconds`);
+   $(".timer").html(`Time Remaining : 00:${count} seconds`);
+   if (count === 0) {
+        clearInterval(timerId);
+        $(".answer1").text("You're out of time!");
+   }; 
 }
 
+//function timeOut () {
+    //if (clearInterval) {
+       // $(".answer1").text("You're out of time!");
+    //}
+//}
+
+
+
+// initialize game
 function startTrivia () {
     $(".question").html(holidayQuestions[0].question);
     question++;
 
     var choicesArr = holidayQuestions[0].choices;
     var buttonsArr = []; 
-
+    // maybe do this manually for formatting
+    // creating buttons for answer choices
     for (var i = 0; i < choicesArr.length; i++) {
         var button = $("<button>");
         button.text(choicesArr[i]);
@@ -86,16 +97,37 @@ function startTrivia () {
     }
 }
 
+// REMEMBER TO RE-.TEXT ANSWER1 for next question
+// game conditions
 $(".answer1").on("click", "button", function (){
     userChoice = $(this).data("id"); 
-    holidayQuestions[0].validAnswer;
-    if(userChoice != holidayQuestions[0].validAnswer {
-        $("")
+    holidayQuestions[0].rightAnswer;
+    if(userChoice != holidayQuestions[0].rightAnswer) {
+        $(".answer1").text("Wrong answer!"); 
+        incorrectAnswer++;
+        
+    } else if (userChoice === holidayQuestions[0].rightAnswer) {
+        $(".answer1").text("Correct!"); 
+        correctAnswers++;  
+    }    
+});
+
+
+
+
+// game continuation function
+function continueGame () {
+        $(".question").html(holidayQuestions[1].question);
+        question++;
+
+        choicesArr = holidayQuestions[1].choices;
+        
+        for (var i = 0; i < choicesArr.length; i++) {
+            button.text(choicesArr[i]);
+            button.attr("data-id",i); 
+            $ (".answer1").append(button); 
+        }
     }
-})
-
-
-
 
 
 })
