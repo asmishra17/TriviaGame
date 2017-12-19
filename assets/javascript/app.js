@@ -94,6 +94,7 @@ function startTrivia () {
         var button = $("<button>");
         button.text(choicesArr[i]);
         button.attr("data-id",i);  
+        button.addClass("btn btn-primary");
        $ (".answer1").append(button);
     }
 }
