@@ -23,7 +23,7 @@ var timerId;
 // make several questions within this object
 var holidayQuestions = [{
     question: "What does the traditional New Year's song, \"Auld Lang Syne\" mean?",
-    choices: ["Time flies", "Yesterday is gone", "Times gone by", "We have only today"],
+    choices: ["\"Time Flies\"", "\"Yesterday Is Gone\"", "\"Times Gone By\"", "\"We Have Only Today\""],
     rightAnswer: 2,
     wordAnswer: "Times gone by"
 }, {
@@ -74,10 +74,10 @@ $(".startbutton").click(function(){
 // timer function 
 function startTimer () {
     count--;
-    $(".timer").html(`Time Remaining : 00:${count} seconds`);
+    $(".timer").text(`Time Remaining : 00:${count} seconds`);
     if (count === 0) {
         clearInterval(timerId);
-        $(".answer1").text("You're out of time!"); 
+        $(".answer1").html("<h4>You're out of time!</h4>"); 
    }; 
 }
 
@@ -94,7 +94,7 @@ function startTrivia () {
         var button = $("<button>");
         button.text(choicesArr[i]);
         button.attr("data-id",i);  
-        button.addClass("btn btn-primary");
+        button.addClass("btn btn-default btn-lg btn-block");
        $ (".answer1").append(button);
     }
 }
@@ -106,13 +106,13 @@ $(".answer1").on("click", "button", function (){
         holidayQuestions[0].rightAnswer;
         
         if(userChoice != holidayQuestions[0].rightAnswer) {
-            $(".answer1").text(`Wrong answer! The answer was: \"${holidayQuestions[0].wordAnswer}\"`); 
+            $(".answer1").html(`<h4>Wrong answer! The answer was: \"${holidayQuestions[0].wordAnswer}\"</h4>`); 
             wrongAnswer++;
             clearInterval(timerId);
             //setTimeout(continueGame, 1000); 
         
         } else if (userChoice === holidayQuestions[0].rightAnswer) {
-            $(".answer1").text("Correct!"); 
+            $(".answer1").html("<h4>Correct!</h4>"); 
             correctAnswers++;  
             clearInterval(timerId);
             //setTimeout(continueGame, 1500); 
