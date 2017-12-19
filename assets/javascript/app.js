@@ -49,7 +49,7 @@ var holidayQuestions = [{
 }, {
     question: "What is Hanukkah also known as?",
     choices: ["Feast of Happiness", "Feast of Dedication", "Feast of Commitment", "Feast of Prosperity"], 
-    rightAnswer: 1, 
+    rightAnswer: 1,
     wordAnswer: "Feast of Dedication"
 }, {
     question: "Kwanzaa is a phrase that means \"First Fruits\". What language is this in?", 
@@ -77,8 +77,7 @@ function startTimer () {
     $(".timer").html(`Time Remaining : 00:${count} seconds`);
     if (count === 0) {
         clearInterval(timerId);
-        $(".answer1").text("You're out of time!");
-        setTimeout(continueGame, 1500); 
+        $(".answer1").text("You're out of time!"); 
    }; 
 }
 
@@ -89,7 +88,7 @@ function startTrivia () {
 
     var choicesArr = holidayQuestions[0].choices;
     var buttonsArr = []; 
-    // maybe do this manually for formatting
+
     // creating buttons for answer choices
     for (var i = 0; i < choicesArr.length; i++) {
         var button = $("<button>");
@@ -101,6 +100,7 @@ function startTrivia () {
 
 // game conditions
 $(".answer1").on("click", "button", function (){
+    
         userChoice = $(this).data("id"); 
         holidayQuestions[0].rightAnswer;
         
@@ -108,14 +108,14 @@ $(".answer1").on("click", "button", function (){
             $(".answer1").text(`Wrong answer! The answer was: \"${holidayQuestions[0].wordAnswer}\"`); 
             wrongAnswer++;
             clearInterval(timerId);
-            
+            //setTimeout(continueGame, 1000); 
         
         } else if (userChoice === holidayQuestions[0].rightAnswer) {
             $(".answer1").text("Correct!"); 
             correctAnswers++;  
             clearInterval(timerId);
-             
-        }   
+            //setTimeout(continueGame, 1500); 
+        }    
 });
 
 
