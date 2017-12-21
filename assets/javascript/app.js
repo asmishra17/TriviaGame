@@ -15,10 +15,10 @@ $(document).ready(function() {
 var questionNum = 0; 
 var userChoice; 
 var correctAnswers = 0;
-var incorrectAnswers = 0;
-var wrongAnswer = 0;
-var question = 0;
-var count = 30; 
+var noAnswer = 0;
+var wrongAnswers = 0;
+var questions = 0;
+var count = 31; 
 var timerId;
 
 // make several questions within this object
@@ -78,19 +78,16 @@ function startTimer () {
     $(".timer").text(`Time Remaining : ${count} seconds`);
     if (count === 0) {
         clearInterval(timerId);
-        $(".answer1").html("<h4 class=\"timeout\">You're out of time!</h4>"); 
-        //put show answer function here
+        $(".answer1").html(`<h4 class=\"timeout\">You're out of time! The answer was: \"${holidayQuestions[questionNum].wordAnswer}\"</h4>`);
+        noAnswer++;
+        setTimeout(continueGame, 4000); 
    }; 
-}
-
-function showAnswer () {
-   $(".answer1").html(`The answer was: ${holidayQuestions[questionNum].wordAnswer}`);
 }
 
 // initialize game
 function startTrivia () {
     $(".question").html(holidayQuestions[questionNum].question);
-    question++;
+    questions++;
 
     var choicesArr = holidayQuestions[questionNum].choices;
     // var buttonsArr = []; 
@@ -101,7 +98,7 @@ function startTrivia () {
         button.text(choicesArr[i]);
         button.attr("data-id",i);  
         button.addClass("btn btn-default btn-lg btn-block");
-       $ (".answer1").append(button);
+       $(".answer1").append(button);
     }
 }
 
@@ -113,26 +110,50 @@ $(".answer1").on("click", "button", function (){
         
         if(userChoice != holidayQuestions[questionNum].rightAnswer) {
             $(".answer1").html(`<h4>Wrong answer! The answer was: \"${holidayQuestions[questionNum].wordAnswer}\"</h4>`); 
-            wrongAnswer++;
+            wrongAnswers++;
             clearInterval(timerId);
-            setTimeout(continueGame, 5000); 
+            setTimeout(continueGame, 4000); 
         
         } else if (userChoice === holidayQuestions[questionNum].rightAnswer) {
             $(".answer1").html("<h4>Correct!</h4>"); 
             correctAnswers++;  
             clearInterval(timerId);
-            setTimeout(continueGame, 5000); 
+            setTimeout(continueGame, 4000); 
         }    
 });
 
 
 // game continuation function
 function continueGame () {
-    $(".answer1").empty();
-    questionNum++;
-    startTrivia(questionNum);     
-
+    if (questions != 8) {
+        $(".answer1").empty();
+        questionNum++;
+        count = 31; 
+        timerId = setInterval(startTimer, 1000);
+        startTrivia(questionNum);     
+    } else {
+        clearInterval(timerId);
+        $(".question").empty();
+        $(".answer1").empty();
+        $(".answer1").html(`<h4 class="results"> Results: <br><br> Correct Answers: ${correctAnswers} <br><br> Incorrect Answers: ${wrongAnswers} <br><br> Unanswered: ${noAnswer}</h4>`);
+        var restart = $("<button>");
+        restart.text(`Restart?`);
+        restart.addClass("btn btn-default btn-lg btn-block");
+        $(".restart").append(restart); 
     }
+}
 
+$(".restart").on("click", function() {
+    questionNum = 0;
+    correctAnswers = 0;
+    noAnswer = 0;
+    wrongAnswers = 0;
+    questions = 0;
+    count = 31;
+    $(".answer1").empty();
+    $(".restart").empty();
+    timerId = setInterval(startTimer, 1000);
+    startTrivia(0); 
+})
 
 })
