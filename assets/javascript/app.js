@@ -12,6 +12,7 @@ $(document).ready(function() {
 // game restart page
 
 // global variables
+var questionNum = 0; 
 var userChoice; 
 var correctAnswers = 0;
 var incorrectAnswers = 0;
@@ -25,7 +26,7 @@ var holidayQuestions = [{
     question: "What does the traditional New Year's song, \"Auld Lang Syne\" mean?",
     choices: ["\"Time Flies\"", "\"Yesterday Is Gone\"", "\"Times Gone By\"", "\"We Have Only Today\""],
     rightAnswer: 2,
-    wordAnswer: "Times gone by"
+    wordAnswer: "Times Gone By"
 }, {
     question: "When was the holiday of Kwanzaa introduced?",
     choices: ["1956", "1966", "1976", "1981"], 
@@ -68,26 +69,31 @@ var holidayQuestions = [{
 $(".startbutton").click(function(){
     $(this).hide(); 
     timerId = setInterval(startTimer, 1000); 
-    startTrivia(); 
+    startTrivia(0); 
 })
 
 // timer function 
 function startTimer () {
     count--;
-    $(".timer").text(`Time Remaining : 00:${count} seconds`);
+    $(".timer").text(`Time Remaining : ${count} seconds`);
     if (count === 0) {
         clearInterval(timerId);
-        $(".answer1").html("<h4>You're out of time!</h4>"); 
+        $(".answer1").html("<h4 class=\"timeout\">You're out of time!</h4>"); 
+        //put show answer function here
    }; 
+}
+
+function showAnswer () {
+   $(".answer1").html(`The answer was: ${holidayQuestions[questionNum].wordAnswer}`);
 }
 
 // initialize game
 function startTrivia () {
-    $(".question").html(holidayQuestions[0].question);
+    $(".question").html(holidayQuestions[questionNum].question);
     question++;
 
-    var choicesArr = holidayQuestions[0].choices;
-    var buttonsArr = []; 
+    var choicesArr = holidayQuestions[questionNum].choices;
+    // var buttonsArr = []; 
 
     // creating buttons for answer choices
     for (var i = 0; i < choicesArr.length; i++) {
@@ -103,40 +109,28 @@ function startTrivia () {
 $(".answer1").on("click", "button", function (){
     
         userChoice = $(this).data("id"); 
-        holidayQuestions[0].rightAnswer;
+        holidayQuestions[questionNum].rightAnswer;
         
-        if(userChoice != holidayQuestions[0].rightAnswer) {
-            $(".answer1").html(`<h4>Wrong answer! The answer was: \"${holidayQuestions[0].wordAnswer}\"</h4>`); 
+        if(userChoice != holidayQuestions[questionNum].rightAnswer) {
+            $(".answer1").html(`<h4>Wrong answer! The answer was: \"${holidayQuestions[questionNum].wordAnswer}\"</h4>`); 
             wrongAnswer++;
             clearInterval(timerId);
-            //setTimeout(continueGame, 1000); 
+            setTimeout(continueGame, 5000); 
         
-        } else if (userChoice === holidayQuestions[0].rightAnswer) {
+        } else if (userChoice === holidayQuestions[questionNum].rightAnswer) {
             $(".answer1").html("<h4>Correct!</h4>"); 
             correctAnswers++;  
             clearInterval(timerId);
-            //setTimeout(continueGame, 1500); 
+            setTimeout(continueGame, 5000); 
         }    
 });
 
 
 // game continuation function
 function continueGame () {
-        $(".question").html(holidayQuestions[1].question);
-        question++;
-
-        choicesArr = holidayQuestions[1].choices;
-        count = 30;
-        timerId = setInterval(startTimer, 1000);
-        $ (".answer1").text(" ");
-        
-
-        for (var i = 0; i < choicesArr.length; i++) {
-            var button = $("<button>");
-            button.text(choicesArr[i]);
-            button.attr("data-id",i); 
-            $ (".answer1").append(button); 
-        }
+    $(".answer1").empty();
+    questionNum++;
+    startTrivia(questionNum);     
 
     }
 
