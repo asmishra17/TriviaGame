@@ -25,6 +25,15 @@ img {
 
 @media screen and (max-width: 980px) {
     body {
-      color: black; /* for readability */ 
+        color: #000000; /* for readability */ 
+    }
+
+    h1 {
+        color: #000000;
+    }
+
+    .container {
+        background-color: #DAECF4;
+        width: 80%;
     }
 }
