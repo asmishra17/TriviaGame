@@ -1,0 +1,17 @@
+body {
+    background-image: url("background.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color:#F4FEFF;
+    text-align: center;
+}
+    
+.btn {
+    margin: 10px 0 10px 0;
+    border: 2px solid #C8B700;
+    color: #1F1F1F;
+}
+
+h1 {
+    color: #F4FEFF;
+}
