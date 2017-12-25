@@ -25,6 +25,6 @@ img {
 
 @media screen and (max-width: 980px) {
     body {
-      color: black;
+      color: black; /* for readability */ 
     }
 }
