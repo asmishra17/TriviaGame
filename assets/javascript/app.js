@@ -15,42 +15,50 @@ var holidayQuestions = [{
     question: "What does the traditional New Year's song, \"Auld Lang Syne\" mean?",
     choices: ["\"Time Flies\"", "\"Yesterday Is Gone\"", "\"Times Gone By\"", "\"We Have Only Today\""],
     rightAnswer: 2,
-    wordAnswer: "Times Gone By"
+    wordAnswer: "Times Gone By",
+    image: "assets/images/nye1.jpg"
 }, {
     question: "When was the holiday of Kwanzaa introduced?",
     choices: ["1956", "1966", "1976", "1981"], 
     rightAnswer: 1,
-    wordAnswer: "1966"
+    wordAnswer: "1966",
+    image: "assets/images/kwanzaa1.jpg"
 }, {
     question: "When was the first New Year celebration?", 
     choices: ["1000 years ago", "2000 years ago", "3000 years ago", "4000 years ago"],
     rightAnswer: 3,
-    wordAnswer: "4000 years ago"
+    wordAnswer: "4000 years ago",
+    image: "assets/images/nye2.jpg"
 }, {
     question: "What beverage company has been using Santa Claus in its advertising since 1931?",
     choices: ["Coca-Cola", "Pepsi", "Dr. Pepper", "Fanta"],
     rightAnswer: 0,
-    wordAnswer: "Coca-Cola"
+    wordAnswer: "Coca-Cola",
+    image: "assets/images/xmas1.jpg"
 }, {
     question: "What Christmas decoration was originally made from strands of silver?",
     choices: ["Ornaments", "Tinsel", "Mistletoe", "Wreaths"],
     rightAnswer: 1,
-    wordAnswer: "Tinsel"
+    wordAnswer: "Tinsel",
+    image: "assets/images/xmas2.jpg"
 }, {
     question: "What is Hanukkah also known as?",
     choices: ["Feast of Happiness", "Feast of Dedication", "Feast of Commitment", "Feast of Prosperity"], 
     rightAnswer: 1,
-    wordAnswer: "Feast of Dedication"
+    wordAnswer: "Feast of Dedication",
+    image: "assets/images/hanukkah1.jpg"
 }, {
     question: "Kwanzaa is a phrase that means \"First Fruits\". What language is this in?", 
     choices: ["Swahili", "Arabic", "Hausa", "Igbo"], 
     rightAnswer: 0,
-    wordAnswer: "Swahili"
+    wordAnswer: "Swahili",
+    image: "assets/images/kwanzaa2.jpg"
 }, {
     question: "How many days long is Hanukkah?",  
     choices: ["10", "9", "8", "7"],
     rightAnswer: 2,
-    wordAnswer: "8"
+    wordAnswer: "8",
+    image: "assets/images/hanukkah2.jpg"
 } 
 ]; 
 
@@ -67,9 +75,9 @@ function startTimer () {
     $(".timer").text(`Time Remaining : ${count} seconds`);
     if (count === 0) {
         clearInterval(timerId);
-        $(".answer1").html(`<h4 class=\"timeout\">You're out of time! The answer was: \"${holidayQuestions[questionNum].wordAnswer}\"</h4>`);
+        $(".answer1").html(`<h4 class=\"timeout\">You're out of time! The answer was: \"${holidayQuestions[questionNum].wordAnswer}\"</h4><br><img src = "${holidayQuestions[questionNum].image}">`);
         noAnswer++;
-        setTimeout(continueGame, 3500); 
+        setTimeout(continueGame, 4000); 
    }; 
 }
 
@@ -96,16 +104,16 @@ $(".answer1").on("click", "button", function () {
         userChoice = $(this).data("id"); 
         
         if(userChoice != holidayQuestions[questionNum].rightAnswer) {
-            $(".answer1").html(`<h4>Wrong answer! The answer was: \"${holidayQuestions[questionNum].wordAnswer}\"</h4>`); 
+            $(".answer1").html(`<h4>Wrong answer! The answer was: \"${holidayQuestions[questionNum].wordAnswer}\"</h4><br><img src = "${holidayQuestions[questionNum].image}">`); 
             wrongAnswers++;
             clearInterval(timerId);
-            setTimeout(continueGame, 3500); 
+            setTimeout(continueGame, 4000); 
         
         } else if (userChoice === holidayQuestions[questionNum].rightAnswer) {
-            $(".answer1").html("<h4>Correct!</h4>"); 
+            $(".answer1").html(`<h4>Correct!</h4><br><img src = "${holidayQuestions[questionNum].image}">`); 
             correctAnswers++;  
             clearInterval(timerId);
-            setTimeout(continueGame, 3500); 
+            setTimeout(continueGame, 4000); 
         }    
 });
 

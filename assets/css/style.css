@@ -7,11 +7,18 @@ body {
     
 .btn {
     margin: 10px 0 10px 0;
-    border: 2px solid #C8B700;
+    border: 3px solid #C8B700;
     color: #1F1F1F;
 }
 
 h1 {
     color: #F4FEFF;
+    text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
 }
 
+img {
+    align-content: center;
+    height: 200px;
+    width: 200px;
+    border: 3px solid #C8B700;
+}
